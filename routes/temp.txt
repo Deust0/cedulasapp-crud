@@ -1,0 +1,15 @@
+Route::get('/ciudadanos', function(){
+    return "Lista de ciudadanos";
+});
+
+Route::post('/ciudadanos', function(){
+    return "Agregar número ciudadano";
+});
+
+Route::put('/ciudadanos/{id}', function(){
+    return "Actualizando ciudadano";
+});
+
+Route::delete('/ciudadanos/{id}', function(){
+    return "Eliminando estudiantes";
+});
