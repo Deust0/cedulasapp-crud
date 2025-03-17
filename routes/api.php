@@ -19,16 +19,15 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function() {
     //Route::get('logout',[AuthController::class, 'logout']);
-
-    Route::get('/citizen', [ciudadanosController::class, 'showAllCitizen']);
-
-    Route::get('/citizen/{id}', [ciudadanosController::class, 'showCitizenById']);
-
-    Route::post('/citizen', [ciudadanosController::class, 'addCitizen']);
-
-    Route::put('/citizen/{id}', [ciudadanosController::class, 'modifyCitizen']);
-
-    Route::delete('/citizen/{id}', [ciudadanosController::class, 'deleteCitizen']);
-
-    Route::patch('/citizen/{id}', [ciudadanosController::class, 'updateUserField']);
 });
+Route::get('/citizen', [ciudadanosController::class, 'showAllCitizen']);
+
+Route::get('/citizen/{id}', [ciudadanosController::class, 'showCitizenById']);
+
+Route::post('/citizen', [ciudadanosController::class, 'addCitizen']);
+
+Route::put('/citizen/{id}', [ciudadanosController::class, 'modifyCitizen']);
+
+Route::delete('/citizen/{id}', [ciudadanosController::class, 'deleteCitizen']);
+
+Route::patch('/citizen/{id}', [ciudadanosController::class, 'updateUserField']);
