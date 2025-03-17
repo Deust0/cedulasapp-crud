@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ciudadanosController extends Controller
 {
-    public function showAll(){
-        $ciudadanos = ciudadanoModel::all();
+    public function showAllCitizen(){
+        //$ciudadanos = ciudadanoModel::all();
+        $ciudadanos = CiudadanoModel::paginate(10); 
 
         if ($ciudadanos->isEmpty()) {
             return response()->json(['message' => 'No existe registro de ciudadanos'], 200);
@@ -18,18 +19,18 @@ class ciudadanosController extends Controller
         return response()->json($ciudadanos, 200);
     }
 
-    public function agregarCiudadano(Request $request){
+    public function addCitizen(Request $request){
         $validator = Validator::make($request->all(),[
             'cedula' => 'required|numeric|digits:10|unique:info_usuarios,cedula',
             'name' => 'required|max:30',
-            'edad' => 'required|integer|digits:2',
+            'edad' => 'required|integer|digits:3',
             'ciudad' => 'required|max:10',
             'nacimiento' => 'required|date',
             'estadocivil' => 'required|in:soltero,casado,divorciado,soltera,casada,divorciada'
         ]);
         if ($validator->fails()) {
             $data = [
-                'message' => 'Datos ingresados erroneamente',
+                'message' => 'Datos de ciudadano ingresados erroneamente',
                 'error' => $validator->errors(),
                 'status' => 400
             ];
@@ -59,8 +60,9 @@ class ciudadanosController extends Controller
         return response()->json($data, 201);
     }
 
-    public function show($id){
+    public function showCitizenById($id){
         $ciudadano = ciudadanoModel::find($id);
+        // $ciudadano = Ciudadano::where('cedula', $cedula)->first();
         if(!$ciudadano) {
             $data = [
                 'message' => 'No encontrado',
@@ -75,7 +77,7 @@ class ciudadanosController extends Controller
         return response()->json($data, 200);
     }
 
-    public function eliminarCiudadano($id){
+    public function deleteCitizen($id){
         $ciudadano = ciudadanoModel::find($id);
         if(!$ciudadano){
             $data = [
@@ -94,7 +96,7 @@ class ciudadanosController extends Controller
             return response()->json($data, 200);
     }
 
-    public function modificarCiudadano(Request $request, $id){
+    public function modifyCitizen(Request $request, $id){
         $ciudadano = ciudadanoModel::find($id);
         if(!$ciudadano){
             $data = [
@@ -104,9 +106,10 @@ class ciudadanosController extends Controller
             return response()->json($data, 404);
         }
         $validator = Validator::make($request->all(),[
-            'cedula' => 'required|numeric|digits:10|unique:info_usuarios,cedula',
+            'cedula' => 'required|numeric|digits:10|unique:info_usuarios,cedula', //validar para que si es la misma
+            //cedula continuar y modificar
             'name' => 'required|max:30',
-            'edad' => 'required|integer|digits:2',
+            'edad' => 'required|integer|digits:3',
             'ciudad' => 'required|max:10',
             'nacimiento' => 'required|date',
             'estadocivil' => 'required|in:soltero,casado,divorciado,soltera,casada,divorciada'
@@ -135,7 +138,7 @@ class ciudadanosController extends Controller
         return response()->json($data, 200);
     }
 
-    public function modificarParcialCiudadano(Request $request, $id){
+    public function updateUserField(Request $request, $id){
         $ciudadano = ciudadanoModel::find($id);
         if(!$ciudadano){
             $data = [
@@ -149,7 +152,7 @@ class ciudadanosController extends Controller
         $validator = Validator::make($request->all(),[
             'cedula' => 'numeric|digits:10|unique:info_usuarios,cedula',
             'name' => 'max:30',
-            'edad' => 'integer|digits:2',
+            'edad' => 'integer|digits:3',
             'ciudad' => 'max:10',
             'nacimiento' => 'date',
             'estadocivil' => 'in:soltero,casado,divorciado,soltera,casada,divorciada'

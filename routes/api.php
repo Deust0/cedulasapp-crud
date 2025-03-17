@@ -20,15 +20,15 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function() {
     //Route::get('logout',[AuthController::class, 'logout']);
 
-    Route::get('/ciudadanos', [ciudadanosController::class, 'showAll']);
+    Route::get('/citizen', [ciudadanosController::class, 'showAllCitizen']);
 
-    Route::get('/ciudadanos/{id}', [ciudadanosController::class, 'show']);
+    Route::get('/citizen/{id}', [ciudadanosController::class, 'showCitizenById']);
 
-    Route::post('/ciudadanos', [ciudadanosController::class, 'agregarCiudadano']);
+    Route::post('/citizen', [ciudadanosController::class, 'addCitizen']);
 
-    Route::put('/ciudadanos/{id}', [ciudadanosController::class, 'modificarCiudadano']);
+    Route::put('/citizen/{id}', [ciudadanosController::class, 'modifyCitizen']);
 
-    Route::delete('/ciudadanos/{id}', [ciudadanosController::class, 'eliminarCiudadano']);
+    Route::delete('/citizen/{id}', [ciudadanosController::class, 'deleteCitizen']);
 
-    Route::patch('/ciudadanos/{id}', [ciudadanosController::class, 'modificarParcialCiudadano']);
+    Route::patch('/citizen/{id}', [ciudadanosController::class, 'updateUserField']);
 });

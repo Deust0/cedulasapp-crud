@@ -16,7 +16,7 @@ class ciudadanosSeeder extends Seeder
     {
         DB::table('info_usuarios')->insert([
             [
-            'cedula' => 1001001001,
+                'cedula' => 1001001001,
                 'name' => 'Juan Pérez',
                 'edad' => 30,
                 'ciudad' => 'Quito',
